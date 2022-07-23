@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    organization = "great-stone-biz"
+    organization = "<MY-ORG>"
     hostname     = "app.terraform.io" # default
 
     workspaces {
@@ -105,20 +105,20 @@ resource "aws_route_table_association" "hashicat" {
   route_table_id = aws_route_table.hashicat.id
 }
 
-// data "aws_ami" "ubuntu" {
-//   most_recent = true
-//   owners      = ["099720109477"] # Canonical
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"] # Canonical
 
-//   filter {
-//     name   = "name"
-//     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-//   }
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
 
-//   filter {
-//     name   = "virtualization-type"
-//     values = ["hvm"]
-//   }
-// }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
 
 resource "aws_eip" "hashicat" {
   instance = aws_instance.hashicat.id
@@ -131,8 +131,7 @@ resource "aws_eip_association" "hashicat" {
 }
 
 resource "aws_instance" "hashicat" {
-  // ami                         = data.aws_ami.ubuntu.id
-  ami                         = "ami-0565d651769eb3de5"
+  ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.hashicat.key_name
   associate_public_ip_address = true
