@@ -1,12 +1,4 @@
 terraform {
-  cloud {
-    organization = "yoojonglee"
-    hostname     = "app.terraform.io" # default
-
-    workspaces {
-      name = "terraform-edu-chapter7-github-action"
-    }
-  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -19,7 +11,7 @@ provider "aws" {
   region = var.region
   default_tags {
     tags = {
-      Project = "Coffee-Mug-Cake"
+      Project = "Terraform Cloud Workflow"
       Owner   = "jerry & tom"
     }
   }
